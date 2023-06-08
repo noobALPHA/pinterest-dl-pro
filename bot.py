@@ -78,7 +78,7 @@ MONGO_DB = os.environ.get("MONGO_DB", None)
 # type yout telegram id or username
 LOG = os.environ.get("LOG", None)
 ADMIN = os.environ.get("ADMIN", None)
-
+LOG_GROUP_ID = int(os.environ.get("LOG_GROUP_ID", ""))
 
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
@@ -226,7 +226,7 @@ async def start(event):
     await log_yolla(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
     mesaj = f"Gönderen [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
-    await bot.send_message(ADMIN, mesaj)
+    await bot.send_message(LOG_GROUP_ID, mesaj)
     if event:
         markup = bot.build_reply_markup(
             [
