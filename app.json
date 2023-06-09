@@ -42,11 +42,14 @@
             "value": "",
             "required": true
         },
-        "ADMIN" : {
-            "description": "Add Your Telegram ID",
+        "OWNER" : {
+            "description": "Add Your Telegram Username without '@'",
             "value": "",
             "required": true
-        }
+        },
+        "LOG_GROUP_ID": "Enter The Log Group ID -100xxxxx",
+        "value": "",
+        "required": true
     },
     "buildpacks": [
         {
