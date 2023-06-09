@@ -81,7 +81,7 @@ OWNER = os.environ.get("OWNER", "ALPHA099")
 
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
-BOT_NAME = {bot.get_me()).first_name}
+BOT_NAME = {bot.get_me().first_name}
 USER_MENTION = {msg.from_user.mention}
 
 msg = """
@@ -92,7 +92,7 @@ msg = """
 
 `ɪ'ᴍ ᴀ ʙᴏᴛ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴅᴇᴏs ᴀɴᴅ ɪᴍᴀɢᴇs ғʀᴏᴍ` Pinterest.com
 
-๏ ᴍʏ ᴄᴏᴍᴍᴀɴᴅs
+๏ ᴍʏ ᴄᴏᴍᴍᴀɴᴅs:
 
 ➻ **ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀ ᴠɪᴅᴇᴏ:** `/vid PinterestURL`
 
