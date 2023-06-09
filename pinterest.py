@@ -82,6 +82,7 @@ OWNER = os.environ.get("OWNER", "ALPHA099")
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 BOT_NAME = {bot.get_me().first_name}
+msg = event.message
 USER_MENTION = {msg.from_user.mention}
 
 msg = """
