@@ -85,10 +85,10 @@ BOT_NAME = {bot.get_me().first_name}
 
 
 me = client.get_me()
-USER_MENTION = [{me.first_name}](tg://user?id={me.id})
+
 msg = """
 
-ʜᴇʟʟᴏ {USER_MENTION} ʙᴀʙʏ, 
+ʜᴇʟʟᴏ [{me.first_name}](tg://user?id={me.id}) ʙᴀʙʏ, 
 
 ᴛʜɪs ɪs {BOT_NAME}
 
