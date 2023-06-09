@@ -83,8 +83,8 @@ bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN
 
 BOT_NAME = {bot.get_me().first_name}
 async def handle_message(event):
-msg = event.message
-USER_MENTION = {msg.from_user.mention}
+Message = event.message
+USER_MENTION = {Message.from_user.mention}
 
 msg = """
 
