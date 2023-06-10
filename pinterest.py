@@ -195,7 +195,7 @@ async def vid(event):
     await log_send(event)
     try:
         j = await event.client(GetFullUserRequest(event.chat_id))
-        dm = f"**» ᴜsᴇʀ** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ {j.user.username}**\n**» ᴜsᴇʀ ɪᴅ:** `{event.chat_id}` \n**» ʟɪɴᴋ:** {event.message.message}"
+        dm = f"**» ᴜsᴇʀ** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ @{j.user.username}**\n**» ᴜsᴇʀ ɪᴅ:** `{event.chat_id}` \n**» ʟɪɴᴋ:** {event.message.message}"
         await bot.send_message(LOG_GROUP_ID, dm)
         markup = bot.build_reply_markup(
             [
@@ -271,7 +271,7 @@ async def vid(event):
                 event.chat_id,
                 j,
                 thumb=thumb,
-                caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBHEAVEN.t.me)",
+                caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBSHEAVEN.t.me)",
                 force_document=False,
                 allow_cache=False,
                 reply_to=event.message.id,
@@ -305,7 +305,7 @@ async def vid(event):
 async def img(event):
     await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    dm = f"**» ᴜsᴇʀ** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ {j.user.username}**\n**» ᴜsᴇʀ ɪᴅ:** `{event.chat_id}` \n**» ʟɪɴᴋ:** {event.message.message}"
+    dm = f"**» ᴜsᴇʀ** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ @{j.user.username}**\n**» ᴜsᴇʀ ɪᴅ:** `{event.chat_id}` \n**» ʟɪɴᴋ:** {event.message.message}"
     await bot.send_message(LOG_GROUP_ID, dm)
     markup = bot.build_reply_markup(
         [
@@ -354,7 +354,7 @@ async def img(event):
         await event.client.send_file(
             event.chat_id,
             j,
-            caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBHEAVEN.t.me)",
+            caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBSHEAVEN.t.me)",
             force_document=False,
             allow_cache=False,
             reply_to=event.message.id,
