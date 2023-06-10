@@ -183,7 +183,7 @@ async def start(event):
             [
                 [
                     Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="https://ALPHA099.t.me"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
             ]
@@ -201,7 +201,7 @@ async def vid(event):
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/SUPPORT_CHAT"),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
                     Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
             ]
@@ -311,7 +311,7 @@ async def img(event):
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
                 Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
         ]
@@ -378,7 +378,7 @@ async def otherbots(event):
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
                 Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
             [Button.inline(text="ʙᴀᴄᴋ", data="home")],
@@ -409,10 +409,10 @@ async def home(event):
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
                 Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
-            [Button.inline(text="🤖 ➻ σтнєя вσтѕ", data="otherbots")],
+            [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
         ]
     )
     await event.edit(msg, buttons=markup, link_preview=False)
