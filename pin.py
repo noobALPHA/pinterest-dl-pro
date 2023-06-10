@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Note: Support python 3 but not python 2
+__maintainer__ = "˹ᴧŁþнᴧ ꭙ˼"
+__git__ = "https://github.com/noobALPHA"
+__version__ = 2.0
 
 import os
 import platform
