@@ -94,7 +94,7 @@ msg = """
 
 ➻ **ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀ ɪᴍᴀɢᴇ:** `/img PinterestURL`
 
-мα∂є ωιтн 🖤 ву: [˹ᴧŁþнᴧ ꭙ˼](tg://user?id=1057412250)
+мα∂є ωιтн 🖤 ву: [˹ᴧŁþнᴧ ꭙ˼](tg://user?id=1057412250) ...!!
 """
 
 
@@ -114,49 +114,49 @@ class pinterest_db:
         elif say > 1:
             cursor = self.collection.find(sorgu, {"_id": 0})
             return {
-                bak["uye_id"]: {"uye_nick": bak["uye_nick"], "uye_adi": bak["uye_adi"]}
+                bak["u_ID"]: {"u_usr": bak["u_usr"], "u_name": bak["u_name"]}
                 for bak in cursor
             }
         else:
             return None
 
-    def ekle(self, uye_id, uye_nick, uye_adi):
-        if not self.ara({"uye_id": {"$in": [str(uye_id), int(uye_id)]}}):
+    def ekle(self, u_ID, u_usr, u_name):
+        if not self.ara({"u_ID": {"$in": [str(u_ID), int(u_ID)]}}):
             return self.collection.insert_one(
                 {
-                    "uye_id": uye_id,
-                    "uye_nick": uye_nick,
-                    "uye_adi": uye_adi,
+                    "u_ID": u_ID,
+                    "u_usr": u_usr,
+                    "u_name": u_name,
                 }
             )
         else:
             return None
 
-    def sil(self, uye_id):
-        if not self.ara({"uye_id": {"$in": [str(uye_id), int(uye_id)]}}):
+    def sil(self, u_ID):
+        if not self.ara({"u_ID": {"$in": [str(u_ID), int(u_ID)]}}):
             return None
 
-        self.collection.delete_one({"uye_id": {"$in": [str(uye_id), int(uye_id)]}})
+        self.collection.delete_one({"u_ID": {"$in": [str(u_ID), int(u_ID)]}})
         return True
 
     @property
     def user_ids(self):
-        return list(self.ara({"uye_id": {"$exists": True}}).keys())
+        return list(self.ara({"u_ID": {"$exists": True}}).keys())
 
 
-async def log_yolla(event):
+async def log_send(event):
     j = await event.client(GetFullUserRequest(event.chat_id))
-    uye_id = j.user.id
-    uye_nick = f"@{j.user.username}" if j.user.username else None
-    uye_adi = f"{j.user.first_name or ''} {j.user.last_name or ''}".strip()
+    u_ID = j.user.id
+    u_usr = f"@{j.user.username}" if j.user.username else None
+    u_name = f"{j.user.first_name or ''} {j.user.last_name or ''}".strip()
     komut = event.text
 
     # Kullanıcı Kaydet
     db = pinterest_db()
-    db.ekle(uye_id, uye_nick, uye_adi)
+    db.ekle(u_ID, u_usr, u_name)
 
 
-# total number of users using the bot
+# to check the total numbers of bot users (OWNER cmd)
 @bot.on(events.NewMessage(pattern="/stats"))
 async def say(event):
     j = await event.client(GetFullUserRequest(event.chat_id))
@@ -173,10 +173,10 @@ async def say(event):
 
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def start(event):
-    await log_yolla(event)
+    await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
-    await bot.send_message(OWNER, mesaj)
+    dm = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\ndm: {event.message.message}"
+    await bot.send_message(OWNER, dm)
     if event:
         markup = bot.build_reply_markup(
             [
@@ -192,23 +192,23 @@ async def start(event):
 
 @bot.on(events.NewMessage(pattern="/vid ?(.*)", func=lambda e: e.is_private))
 async def vid(event):
-    await log_yolla(event)
+    await log_send(event)
     try:
         j = await event.client(GetFullUserRequest(event.chat_id))
-        mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
-        await bot.send_message(OWNER, mesaj)
+        dm = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\ndm: {event.message.message}"
+        await bot.send_message(OWNER, dm)
         markup = bot.build_reply_markup(
             [
                 [
                     Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="ALPHA099.t.me"),
                 ],
             ]
         )
 
         url = event.pattern_match.group(1)
         if url:
-            x = await event.reply("`işlem yapılıyor bekleyiniz...`")
+            x = await event.reply("`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ.**")
 
             # get_url = get_download_url(url)
             pin_dl = importlib.import_module("pin")
@@ -271,7 +271,7 @@ async def vid(event):
                 event.chat_id,
                 j,
                 thumb=thumb,
-                caption="**@Pinterestdown_Robot** tarafından indirilmiştir\n\nDownloaded by **@Pinterestdown_Robot**",
+                caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBHEAVEN.t.me)",
                 force_document=False,
                 allow_cache=False,
                 reply_to=event.message.id,
@@ -286,7 +286,7 @@ async def vid(event):
                     )
                 ],
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, event, c_time, "yükleniyor...")
+                    progress(d, t, event, c_time, "loading...")
                 ),
             )
             await event.delete()
@@ -295,7 +295,7 @@ async def vid(event):
             os.remove(thumb_image_path)
         else:
             await event.reply(
-                "**bana komutla beraber link gönder.**\n\n`send me the link with the command.`"
+                "**๏ sᴇɴᴅ ᴍᴇ ᴛʜᴇ ʟɪɴᴋ ᴡɪᴛʜ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ.**\n\n/img `PinterestURL` ғᴏʀ ɪᴍᴀɢᴇ\n/vid `PinterestURL` ғᴏʀ ᴠɪᴅᴇᴏ"
             )
     except FileNotFoundError:
         return
@@ -303,22 +303,22 @@ async def vid(event):
 
 @bot.on(events.NewMessage(pattern="/img ?(.*)", func=lambda e: e.is_private))
 async def img(event):
-    await log_yolla(event)
+    await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
-    await bot.send_message(OWNER, mesaj)
+    dm = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\ndm: {event.message.message}"
+    await bot.send_message(OWNER, dm)
     markup = bot.build_reply_markup(
         [
             [
                 Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="ALPHA099.t.me"),
             ],
         ]
     )
     url = event.pattern_match.group(1)
     if url:
         x = await event.reply(
-            "`İşlem yapılıyor lütfen bekleyiniz...`\n\nProcessing please wait ..."
+            "`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ."
         )
         # get_url = await get_download_url(url)
         # j = await download_image(get_url)
@@ -354,13 +354,13 @@ async def img(event):
         await event.client.send_file(
             event.chat_id,
             j,
-            caption="**@Pinterestdown_Robot** tarafından indirilmiştir\n\nDownloaded by **@Pinterestdown_Robot**",
+            caption="♡︎ тнαик уσυ fσя υѕιиg мє. \n\n» ᴀ ᴘɪɴᴛᴇʀᴇsᴛ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ ʙʏ [ɴᴏᴏʙ ʜᴇᴀᴠᴇɴ](https://NOOBHEAVEN.t.me)",
             force_document=False,
             allow_cache=False,
             reply_to=event.message.id,
             buttons=markup,
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, event, c_time, "yükleniyor...")
+                progress(d, t, event, c_time, "loading...")
             ),
         )
         await event.delete()
@@ -368,7 +368,7 @@ async def img(event):
         os.remove(j)
     else:
         await event.reply(
-            "**bana komutla beraber link gönder.**\n\n`send me the link with the command.`"
+            "๏ sᴇɴᴅ ᴍᴇ ᴛʜᴇ ʟɪɴᴋ ᴡɪᴛʜ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ.**\n\n/img `PinterestURL` ғᴏʀ ɪᴍᴀɢᴇ\n/vid `PinterestURL` ғᴏʀ ᴠɪᴅᴇᴏ"
         )
 
 
@@ -378,26 +378,16 @@ async def otherbots(event):
         [
             [
                 Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="ALPHA099.t.me"),
             ],
             [Button.inline(text="ʙᴀᴄᴋ", data="home")],
         ]
     )
     await event.edit(
-        "**➻ σтнєя вσтѕımız:**\n\n"
-        + "📍 [A101 Katalog Bot](t.me/A101KatalogBot)\n"
-        + "📍 [Osmanlıca Bot](t.me/OsmanlicaBot)\n"
-        + "📍 [Pinterest Video Resim İndirici Bot](t.me/A101KatalogBot)\n"
-        + "📍 [Arşiv Çıkarıcı Bot](t.me/ExtractorRobot)\n"
-        + "📍 [Vimeo Video İndirici Bot](t.me/vimeo_robot)\n"
-        + "📍 [Tureng Bot](t.me/TurengRobot)\n"
-        + "📍 [TDK Bot](t.me/TDK_ROBOT)\n"
-        + "📍 [Müzik Arama Bot](t.me/muzikaramabot)\n"
-        + "📍 [ÖSYM Bot](t.me/OSYMRobot)\n"
-        + "📍 [Youtube Playlist İndirici Bot](t.me/PlaylistIndirRobot)\n"
-        + "📍 [Drive Upload Bot](t.me/driveyuklebot)\n"
-        + "📍 [GoFile Upload Bot](t.me/GofileRobot)\n"
-        + "📍 [Bim Aktuel Ürünler Bot](t.me/BimAktuelBot)\n",
+        "**➻ σтнєя вσтѕ:**\n\n"
+        + "๏ [˹ᴛᴏxɪᴄ ✘ ᴍᴜsɪx˼ ♪](t.me/ToxicMuSixBot)\n"
+        + "๏ [String Generator](t.me/StringMakerBot)\n"
+        + "[✭ ᴍᴏʀᴇ ʙᴏᴛs ᴄᴏᴍɪɴɢ sᴏᴏɴ](t.me/ChatHuB_x_D)\n",
         buttons=markup,
         link_preview=False,
     )
@@ -409,7 +399,7 @@ async def home(event):
         [
             [
                 Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="ALPHA099.t.me"),
             ],
             [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
         ]

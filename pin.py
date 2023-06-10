@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-__author__ = "Lim Kok Hole"
-__copyright__ = "Copyright 2020"
-__credits__ = [
-    "Inspired by https://github.com/SevenLines/pinterest-board-downloader",
-    "S/O",
-]
-__license__ = "MIT"
-# Version increase if the output file/dir naming incompatible with existing
-# , which might re-download for some files of previous version because of dir/filename not match
-# Or log files structure changed reference.
-__version__ = 1.9
-__maintainer__ = "Lim Kok Hole"
-__email__ = "limkokhole@gmail.com"
-__status__ = "Production"
-
 # Note: Support python 3 but not python 2
 
 import os
@@ -26,11 +10,7 @@ from pathlib import PurePath
 
 plat = platform.system().lower()
 if ("window" in plat) or plat.startswith("win"):
-    # Darwin should treat as Linux
     IS_WIN = True
-    # https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
-    # Even though ANSI escape sequence can be enable via `REG ADD HKCU\CONSOLE /f /v VirtualTerminalLevel /t REG_DWORD /d 1`
-    # But since this is not big deal to hide logo testing for this project, so no need.
     ANSI_CLEAR = "\r"  # Default cmd settings not support ANSI sequence
     ANSI_END_COLOR = ""
     ANSI_BLUE = ""
@@ -112,17 +92,11 @@ from fake_useragent import UserAgent
 from requests.cookies import cookiejar_from_dict
 
 ua = UserAgent()
-# RIP UA, https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/-2JIRNMWJ7s/yHe4tQNLCgAJ
 # UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.0.0 Safari/537.36'
 UA = ua.chrome
 
-# MAX_PATH 260 need exclude 1 terminating null character <NUL>
-# if prefix \\?\ + abspath to use Windows extented-length(i.e. in my case, individual filename/dir can use full 259, no more 259 is fit full path), then the MAX_PATH is 259 - 4 = 255
-# [DEPRECATED] no more 259 since always -el now AND Windows 259 - \\?\ == 255 normal Linux
 WIN_MAX_PATH = 255  # MAX_PATH 260 need exclude 1 terminating null character <NUL>
 
-
-# https://stackoverflow.com/a/34325723/1074998
 def printProgressBar(
     iteration, total, prefix="", suffix="", decimals=1, length=100, fill="#"
 ):
@@ -213,7 +187,6 @@ def get_session(ver_i, proxies, cookie_file):
         }
 
     elif ver_i == 4:
-        # 'https://v.pinimg.com/videos/mc/hls/8a/99/7d/8a997df97cab576795be2a4490457ea3.m3u8'
         s.headers = {
             "User-Agent": UA,
             "Accept": "*/*",
@@ -340,7 +313,7 @@ def get_pin_info(
             print("### HTML START ###")
             print(r.content)
             print(
-                "### HTML END ###\n\nPlease report this issue at https://github.com/limkokhole/pinterest-downloader/issues , thanks.\n\n"
+                "### HTML END ###\n\nPlease report this issue at https://t.me/ChatHuB_x_D\n\n"
             )
             cprint(
                 "".join(
@@ -547,11 +520,6 @@ def get_board_info(
             else:
                 sections.append(sec_d_map)
 
-    # dj(board_d, 'board raw')
-    # dj(boards, 'boarded')
-    # dj(board_sec_d, 'sect raw')
-    # dj(sections, 'sectioned')
-
     if section:
         return boards
     else:
@@ -574,11 +542,6 @@ def fetch_boards(uname, proxies, cookie_file):
 
     bookmark = None
     boards = []
-
-    # print('Username: ' + uname)
-
-    # if url != '/mistafisha/animals/':
-    #    continue
 
     while bookmark != "-end-":
         options = {
@@ -691,17 +654,6 @@ def fetch_boards(uname, proxies, cookie_file):
 
 
 def sanitize(path):
-    # trim multiple whitespaces # ".." is the responsibilities of get max path
-
-    # Use PurePath instead of os.path.basename  https://stackoverflow.com/a/31273488/1074998 , e.g.:
-    # >>> PurePath( '/home/iced/..'.replace('..', '') ).parts[-1] # get 'iced'
-    # >>> os.path.basename('/home/iced/..'.replace('..', '')) # get empty ''
-    # Ensure .replace('..', '') is last replacement before .strip() AND not replace back to dot '.'
-    # https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file
-
-    # [todo:0] Handle case sensitive and reserved file names in Windows like Chrome "Save page as" do
-    # For portable to move filename between linux <-> win, should use IS_WIN only (but still can't care if case sensitive filename move to case in-sensitive filesystem).
-    # IS_WIN:
     path = (
         path.replace("<", "")
         .replace(">", "")
@@ -715,11 +667,6 @@ def sanitize(path):
         .replace(".", "_")
         .strip()
     )
-    # Linux:
-    # path.replace('/', '|').replace(':', '_').replace('.', '_').strip()
-
-    # Put this after replace patterns above bcoz 2 distinct spaces may merge together become multiple-spaces, e.g. after ' ? ' replace to '  '
-    # If using .replace('  ', ' ') will only replace once round, e.g. '    ' become
     path = " ".join(path.split())
 
     p = PurePath(path)
@@ -729,19 +676,6 @@ def sanitize(path):
     else:
         return ""
 
-
-# The filesystem limits is 255(normal) , 242(docker) or 143((eCryptfs) bytes
-# So can't blindly [:] slice without encode first (which most downloaders do the wrong way)
-# And need decode back after slice
-# And to ensure mix sequence byte in UTF-8 and work
-# , e.g. abc𪍑𪍑𪍑
-# , need try/catch to skip next full bytes of "1" byte ascii" OR "3 bytes 我" or "4 bytes 𪍑"
-# ... by looping 4 bytes(UTF-8 max) from right to left
-# HTML5 forbid UTF-16, UTF-16/32 not encourage to use in web page
-# So only encode/decode in utf-8
-# https://stackoverflow.com/questions/13132976
-# https://stackoverflow.com/questions/50385123
-# https://stackoverflow.com/questions/11820006
 
 
 def get_max_path(arg_cut, fs_f_max, fpart_excluded_immutable, immutable):
@@ -996,17 +930,10 @@ def download_img(
             if len(img_created_at_l) == 5:
                 img_created_at = "".join(img_created_at_l[1:4])
             human_fname = "_".join([human_fname, img_created_at])
-        # Avoid DD/MM/YYYY truncated when do basename
-        # But inside get_output_file_path got sanitize also # So no need do here
-        # human_fname = human_fname.replace('/', '|').replace(':', '_')
-
-        # print(human_fname)
 
         if not arg_v_only and ("images" in image):
             url = image["images"]["orig"]["url"]
 
-            # hn_bk = human_fname # TESTING -el
-            # human_fname = human_fname + 'A'*500 # TESTING -el
             file_path = get_output_file_path(
                 url, arg_cut, fs_f_max, image_id, human_fname, save_dir
             )
@@ -1201,7 +1128,6 @@ def download_img(
                                     cookies = None
                                 try:
                                     # timeout=(connect_timeout, read_timeout)
-                                    # https://github.com/psf/requests/issues/3099#issuecomment-215498005
 
                                     r = IMG_SESSION.get(
                                         url,
@@ -1334,10 +1260,6 @@ def download_img(
                                     )
                                     return quit(traceback.format_exc())
 
-                                # print('\n\n[' + plus_tag + '] ', end='') # konsole has issue if BOLD_ONLY with cprint with plus_tag
-                                # Got case replace /originals/(detected is .png by imghdr)->covert to .png replace 736x bigger size than orig's png (but compare quality is not trivial), better use orig as first choice
-                                # e.g. https://www.pinterest.com/antonellomiglio/computer/ 's https://i.pinimg.com/736x/3d/f0/88/3df088200b94f0b6b8325ae0a118b401--apple-computer-next-computer.jpg
-                                # cprint('\nRetried with second best quality url success :D {} saved to {}\n'.format(url, file_path), attrs=BOLD_ONLY)
                             else:
                                 cprint(
                                     "".join(
@@ -2025,7 +1947,7 @@ Please ensure your username/boardname/[section] or link has media item.\n"
         )
         return quit(
             traceback.format_exc()
-            + "\n[!] Something wrong with Pinterest URL. Please report this issue at https://github.com/limkokhole/pinterest-downloader/issues , thanks."
+            + "\n[!] Something wrong with Pinterest URL. Please report this issue at https://t.me/ALPHA099"
         )
 
     fs_d_max = fs_f_max
@@ -2439,7 +2361,7 @@ def update_all(
                             + input_url
                             + "\nFolder url: "
                             + folder_url,
-                            "Something is not right. Please report this issue at https://github.com/limkokhole/pinterest-downloader/issues , thanks.",
+                            "Something is not right. Please report this issue at https://t.me/ChatHuB_x_D",
                         ]
                     )
                 # +1 is the upper path to run script previously
@@ -2671,7 +2593,7 @@ def run_library_main(
         )
     elif len(slash_path) > 3:
         return quit(
-            "[!] Something wrong with Pinterest URL. Please report this issue at https://github.com/limkokhole/pinterest-downloader/issues , thanks."
+            "[!] Something wrong with Pinterest URL. Please report this issue at https://t.me/ALPHA099"
         )
 
     fs_f_max = None
@@ -2683,10 +2605,6 @@ def run_library_main(
         fs_f_max = WIN_MAX_PATH
     else:
         arg_el = False
-        #  255 bytes is normaly fs max, 242 is docker max, 143 bytes is eCryptfs max
-        # https://github.com/moby/moby/issues/1413 , https://unix.stackexchange.com/questions/32795/
-        # To test eCryptfs: https://unix.stackexchange.com/questions/426950/
-        # If IS_WIN check here then need add \\?\\ for WIN-only
         for fs_f_max_i in (255, 242, 143):
             try:
                 with open("A" * fs_f_max_i, "r") as f:
