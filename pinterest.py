@@ -195,7 +195,7 @@ async def vid(event):
     await log_send(event)
     try:
         j = await event.client(GetFullUserRequest(event.chat_id))
-        dm = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\ndm: {event.message.message}"
+        dm = f"» ᴜsᴇʀ [{j.user.first_name}](tg://user?id={event.chat_id})\n» ᴜsᴇʀɪᴅ: {event.chat_id} \n» ʟɪɴᴋ: {event.message.message}"
         await bot.send_message(OWNER, dm)
         markup = bot.build_reply_markup(
             [
@@ -305,7 +305,7 @@ async def vid(event):
 async def img(event):
     await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    dm = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\ndm: {event.message.message}"
+    dm = f"» ᴜsᴇʀ [{j.user.first_name}](tg://user?id={event.chat_id})\n» ᴜsᴇʀɪᴅ: {event.chat_id} \n» ʟɪɴᴋ: {event.message.message}"
     await bot.send_message(OWNER, dm)
     markup = bot.build_reply_markup(
         [
