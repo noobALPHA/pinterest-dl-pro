@@ -171,6 +171,12 @@ async def say(event):
         OWNER, f"» ᴄᴜʀʀᴇɴᴛ sᴛᴀᴛs ᴏғ ᴘɪɴᴛᴇʀᴇsᴛ ᴅʟ ᴘʀᴏ ʙᴏᴛ : \n\n **{len(USERS())}** ᴜsᴇʀs"
     )
 
+@bot.on(events.CallbackQuery())
+async def handle_button_click(event):
+    if event.data == b"profile":
+        user_id = 1057412250
+        profile_link = f"tg://user?id={user_id}"
+        await event.client.send_message(event.chat_id, profile_link)
 
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def start(event):
@@ -183,7 +189,7 @@ async def start(event):
             [
                 [
                     Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="https://ALPHA099.t.me"),
+                    Button.inline(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", data="profile"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
             ]
