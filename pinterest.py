@@ -175,8 +175,8 @@ async def say(event):
 async def start(event):
     await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    dm = f"➻ ᴜsᴇʀ [{j.user.first_name}](tg://user?id={event.chat_id})\n➻ ɪɴᴘᴜᴛs: {event.message.message}"
-    await bot.send_message(OWNER, dm)
+    dm = f"**➻ ᴜsᴇʀ:** [{j.user.first_name}](tg://user?id={event.chat_id})\n**➻ ɪɴᴘᴜᴛs:** {event.message.message}"
+    await bot.send_message(LOG_GROUP_ID, dm)
     if event:
         markup = bot.build_reply_markup(
             [
@@ -208,7 +208,7 @@ async def vid(event):
 
         url = event.pattern_match.group(1)
         if url:
-            x = await event.reply("`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ.**")
+            x = await event.reply("`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴅᴜᴇ ᴛᴏ ʙᴏᴛ ᴏᴠᴇʀʟᴏᴀᴅ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ.**")
 
             # get_url = get_download_url(url)
             pin_dl = importlib.import_module("pin")
@@ -306,7 +306,7 @@ async def img(event):
     await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
     dm = f"**» ᴜsᴇʀ** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ {j.user.username}**\n**» ᴜsᴇʀ ɪᴅ:** `{event.chat_id}` \n**» ʟɪɴᴋ:** {event.message.message}"
-    await bot.send_message(OWNER, dm)
+    await bot.send_message(LOG_GROUP_ID, dm)
     markup = bot.build_reply_markup(
         [
             [
@@ -318,7 +318,7 @@ async def img(event):
     url = event.pattern_match.group(1)
     if url:
         x = await event.reply(
-            "`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ.**"
+            "`ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ʙᴀʙʏ...!!`\n\n**ᴅᴜᴇ ᴛᴏ ʙᴏᴛ ᴏᴠᴇʀʟᴏᴀᴅ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀᴛʟᴇᴀsᴛ 𝟹𝟶 sᴇᴄᴏɴᴅs ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴏᴜᴛᴘᴜᴛ.**"
         )
         # get_url = await get_download_url(url)
         # j = await download_image(get_url)
