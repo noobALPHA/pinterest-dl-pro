@@ -183,7 +183,7 @@ async def start(event):
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/SUPPORT_CHAT"),
                     Button.inline(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", data="tg://user?id=1057412250"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
@@ -203,7 +203,7 @@ async def vid(event):
             [
                 [
                     Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/SUPPORT_CHAT"),
-                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="ALPHA099.t.me"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
             ]
         )
