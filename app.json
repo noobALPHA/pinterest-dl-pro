@@ -42,15 +42,21 @@
             "value": "",
             "required": true
         },
-        "OWNER" : {
+        "OWNER": {
             "description": "Add Your Telegram Username without '@'",
             "value": "",
             "required": true
         },
-        "LOG_GROUP_ID": "Enter The Log Group ID -100xxxxx",
-        "value": "",
-        "required": true
-    },
+        "LOG_GROUP_ID": {
+            "description": "Enter The Log Group ID -100xxxxx",
+            "value": "",
+            "required": true
+        },
+        "SUPPORT_CHAT": {
+            "description": "Your Support Chat Username without '@'",
+            "value": "",
+            "required": false
+        },
     "buildpacks": [
         {
             "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"

@@ -77,30 +77,24 @@ TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/"
 MONGO_DB = os.environ.get("MONGO_DB", None)
 LOG = os.environ.get("LOG", None)
 OWNER = os.environ.get("OWNER", "ALPHA099")
+SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "ChatHuB_x_D")
 
 
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
-
-BOT_NAME = {bot.get_me().first_name}
-
-
-#me = client.get_me()
 
 msg = """
 
 ʜᴇʟʟᴏ ʙᴀʙʏ, 
 
-ᴛʜɪs ɪs {BOT_NAME}
-
 `ɪ'ᴍ ᴀ ʙᴏᴛ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴅᴇᴏs ᴀɴᴅ ɪᴍᴀɢᴇs ғʀᴏᴍ` Pinterest.com
 
-๏ ᴍʏ ᴄᴏᴍᴍᴀɴᴅs:
+๏ ᴍʏ ᴄᴏᴍᴍᴀɴᴅs
 
 ➻ **ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀ ᴠɪᴅᴇᴏ:** `/vid PinterestURL`
 
 ➻ **ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀ ɪᴍᴀɢᴇ:** `/img PinterestURL`
 
-Made with by: [˹ᴧŁþнᴧ ꭙ˼](tg://user?domain={OWNER})
+мα∂є ωιтн 🖤 ву: [˹ᴧŁþнᴧ ꭙ˼](tg://user?domain={OWNER})
 """
 
 
@@ -174,79 +168,25 @@ async def say(event):
         return db.user_ids
 
     await event.client.send_message(
-        OWNER, f"» ᴄᴜʀʀᴇɴᴛ sᴛᴀᴛs ᴏғ sᴛʀɪɴɢ ɢᴇɴ ʙᴏᴛ : \n\n **{len(USERS())}** ᴜsᴇʀs"
+        OWNER, f"» ᴄᴜʀʀᴇɴᴛ sᴛᴀᴛs ᴏғ ᴘɪɴᴛᴇʀᴇsᴛ ᴅʟ ᴘʀᴏ ʙᴏᴛ : \n\n **{len(USERS())}** ᴜsᴇʀs"
     )
 
-
-# Command to make an announcement to users using the bot
-@bot.on(events.NewMessage(pattern="/broadcast"))
-async def duyuru(event):
-    # < START
-    await log_yolla(event)
-
-    ilk_mesaj = await event.client.send_message(
-        event.chat_id, "⌛️ `Hallediyorum..`", reply_to=event.chat_id, link_preview=False
-    )
-    # ------------------------------------------------------------- Başlangıç >
-
-    db = pinterest_db()
-
-    def USERS():
-        return db.user_ids
-
-    if not USERS():
-        await ilk_mesaj.edit("ℹ️ __Start vermiş kimse yok kanka..__")
-        return
-
-    if not event.message.reply_to:
-        await ilk_mesaj.edit("⚠️ __Duyurmak için mesaj yanıtlayın..__")
-        return
-
-    basarili = 0
-    hatalar = []
-    mesaj_giden_kisiler = []
-    get_reply_msg = await event.get_reply_message()
-    for kullanici_id in USERS():
-        try:
-            await event.client.send_message(
-                entity=kullanici_id, message=get_reply_msg.message
-            )
-            mesaj_giden_kisiler.append(kullanici_id)
-            basarili += 1
-        except Exception as hata:
-            hatalar.append(type(hata).__name__)
-            db.sil(kullanici_id)
-
-    mesaj = (
-        f"⁉️ `{len(hatalar)}` __Adet Kişiye Mesaj Atamadım ve DB'den Sildim..__\n\n"
-        if hatalar
-        else ""
-    )
-    mesaj += f"📜 `{basarili}` __Adet Kullanıcıya Mesaj Attım..__"
-
-    await ilk_mesaj.edit(mesaj)
 
 
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def start(event):
     await log_yolla(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    mesaj = f"Gönderen [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
+    mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
     await bot.send_message(OWNER, mesaj)
     if event:
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="📍 Kanal Linki", url="t.me/KanalLinkleri"),
-                    Button.url(text="👤 Yapımcı", url="t.me/OWNER"),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
-                [
-                    Button.url(
-                        text="🔗 GitHub Repo",
-                        url="https://github.com/muhammedfurkan/pinterest_downloader_telegram",
-                    )
-                ],
-                [Button.inline(text="🤖 Diğer Botlar", data="digerbotlar")],
+                [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
             ]
         )
         await bot.send_message(event.chat_id, msg, buttons=markup, link_preview=False)
@@ -257,15 +197,14 @@ async def vid(event):
     await log_yolla(event)
     try:
         j = await event.client(GetFullUserRequest(event.chat_id))
-        mesaj = f"Gönderen [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
+        mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
         await bot.send_message(OWNER, mesaj)
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="📍 Kanal Linki", url="t.me/KanalLinkleri"),
-                    Button.url(text="👤 Yapımcı", url="t.me/OWNER"),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
-                [Button.inline(text="🤖 Diğer Botlar", data="digerbotlar")],
             ]
         )
 
@@ -368,15 +307,14 @@ async def vid(event):
 async def img(event):
     await log_yolla(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    mesaj = f"Gönderen [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
+    mesaj = f"Sender [{j.user.first_name}](tg://user?id={event.chat_id})\nMesaj: {event.message.message}"
     await bot.send_message(OWNER, mesaj)
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="📍 Kanal Linki", url="t.me/KanalLinkleri"),
-                Button.url(text="👤 Yapımcı", url="t.me/OWNER"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
-            [Button.inline(text="🤖 Diğer Botlar", data="digerbotlar")],
         ]
     )
     url = event.pattern_match.group(1)
@@ -436,19 +374,19 @@ async def img(event):
         )
 
 
-@bot.on(events.CallbackQuery(pattern=b"digerbotlar"))
-async def digerbotlar(event):
+@bot.on(events.CallbackQuery(pattern=b"otherbots"))
+async def otherbots(event):
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="📍 Kanal Linki", url="t.me/KanalLinkleri"),
-                Button.url(text="👤 Yapımcı", url="t.me/OWNER"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
-            [Button.inline(text="Ana Sayfa", data="ana")],
+            [Button.inline(text="ʙᴀᴄᴋ", data="home")],
         ]
     )
     await event.edit(
-        "**Diğer Botlarımız:**\n\n"
+        "**➻ σтнєя вσтѕımız:**\n\n"
         + "📍 [A101 Katalog Bot](t.me/A101KatalogBot)\n"
         + "📍 [Osmanlıca Bot](t.me/OsmanlicaBot)\n"
         + "📍 [Pinterest Video Resim İndirici Bot](t.me/A101KatalogBot)\n"
@@ -467,21 +405,15 @@ async def digerbotlar(event):
     )
 
 
-@bot.on(events.CallbackQuery(pattern=b"ana"))
-async def ana(event):
+@bot.on(events.CallbackQuery(pattern=b"home"))
+async def home(event):
     markup = bot.build_reply_markup(
         [
             [
-                Button.url(text="📍 Kanal Linki", url="t.me/KanalLinkleri"),
-                Button.url(text="👤 Yapımcı", url="t.me/OWNER"),
+                Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/{SUPPORT_CHAT}"),
+                Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
             ],
-            [
-                Button.url(
-                    text="🔗 GitHub Repo",
-                    url="https://github.com/muhammedfurkan/pinterest_downloader_telegram",
-                )
-            ],
-            [Button.inline(text="🤖 Diğer Botlar", data="digerbotlar")],
+            [Button.inline(text="🤖 ➻ σтнєя вσтѕ", data="otherbots")],
         ]
     )
     await event.edit(msg, buttons=markup, link_preview=False)
