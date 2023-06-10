@@ -78,7 +78,7 @@ MONGO_DB = os.environ.get("MONGO_DB", None)
 LOG = os.environ.get("LOG", None)
 OWNER = os.environ.get("OWNER", "ALPHA099")
 SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "https://t.me/ChatHUB_x_D")
-
+LOG_GROUP_ID = os.environ.get("LOG_GROUP_ID", None)
 
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
@@ -196,7 +196,7 @@ async def vid(event):
     try:
         j = await event.client(GetFullUserRequest(event.chat_id))
         dm = f"» ᴜsᴇʀ [{j.user.first_name}](tg://user?id={event.chat_id})\n» ᴜsᴇʀɪᴅ: {event.chat_id} \n» ʟɪɴᴋ: {event.message.message}"
-        await bot.send_message(OWNER, dm)
+        await bot.send_message(LOG_GROUP_ID, dm)
         markup = bot.build_reply_markup(
             [
                 [
