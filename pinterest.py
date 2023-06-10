@@ -172,7 +172,6 @@ async def say(event):
     )
 
 
-SUPPORT_CHAT = pinterest.SUPPORT_CHAT
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def start(event):
     await log_yolla(event)
@@ -183,7 +182,7 @@ async def start(event):
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=pinterest.SUPPORT_CHAT),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
                     Button(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
