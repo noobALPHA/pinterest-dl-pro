@@ -183,7 +183,7 @@ async def start(event):
             [
                 [
                     Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=SUPPORT_CHAT),
-                    Button(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
+                    Button.url(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", url="tg://user?id=1057412250"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
             ]
