@@ -56,7 +56,8 @@
             "description": "Your Support Chat Username without '@'",
             "value": "",
             "required": false
-        },
+        }
+    },
     "buildpacks": [
         {
             "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
