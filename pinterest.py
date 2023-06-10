@@ -77,7 +77,7 @@ TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/"
 MONGO_DB = os.environ.get("MONGO_DB", None)
 LOG = os.environ.get("LOG", None)
 OWNER = os.environ.get("OWNER", "ALPHA099")
-SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "ChatHuB_x_D")
+SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "https://t.me/ChatHUB_x_D")
 
 
 bot = TelegramClient("pinterestbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
@@ -172,7 +172,7 @@ async def say(event):
     )
 
 
-
+SUPPORT_CHAT = config.SUPPORT_CHAT
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def start(event):
     await log_yolla(event)
@@ -183,8 +183,8 @@ async def start(event):
         markup = bot.build_reply_markup(
             [
                 [
-                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url="t.me/SUPPORT_CHAT"),
-                    Button.inline(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", data="tg://user?id=1057412250"),
+                    Button.url(text="✨sᴜᴘᴘᴏʀᴛ✨", url=config.SUPPORT_CHAT),
+                    Button.inline(text="🥀ᴅᴇᴠᴇʟᴏᴘᴇʀ🥀", user_id=1057412250"),
                 ],
                 [Button.inline(text="➻ σтнєя вσтѕ", data="otherbots")],
             ]
