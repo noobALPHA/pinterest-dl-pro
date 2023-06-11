@@ -54,7 +54,7 @@
         },
         "SUPPORT_CHAT": {
             "description": "Your Support Chat Username without '@'",
-            "value": "ChatHuB_x_D",
+            "value": "https://t.me/ChatHUB_x_D",
             "required": false
         }
     },
