@@ -175,7 +175,7 @@ async def say(event):
 async def start(event):
     await log_send(event)
     j = await event.client(GetFullUserRequest(event.chat_id))
-    dm = f"**➻ ᴜsᴇʀ:** [{j.user.first_name}](tg://user?id={event.chat_id})\n**➻ ɪɴᴘᴜᴛs:** {event.message.message}"
+    dm = f"**➻ ᴜsᴇʀ:** [{j.user.first_name}](tg://user?id={event.chat_id})\n**» ᴜsᴇʀɴᴀᴍᴇ @{j.user.username}**\n\n**➻ ɪɴᴘᴜᴛs:** {event.message.message}"
     await bot.send_message(LOG_GROUP_ID, dm)
     if event:
         markup = bot.build_reply_markup(
