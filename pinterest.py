@@ -32,7 +32,7 @@ async def get_download_url(link):
     # Make request to website
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "https://botdownloader.com/pinterest-video-downloader", data={"url": link}
+            "https://botdownloader.com/pinterest-video-downloader/dwonload.php", data={"url": link}
         ) as response:
             # Get content from post request
             request_content = await response.read()
